@@ -8,10 +8,7 @@ var eventer;
 var form = forms.create({
     title: fields.string({ required: true }),
     description: fields.string({ required: true }),
-    theme: fields.string({
-      required: true,
-      widget: widgets.color()
-    }),
+    theme: fields.string({ required: true, widget: widgets.color() }),
     image: fields.url()
 });
 
@@ -40,7 +37,7 @@ var postArtefact = {
           eventer.emit('update', {content: 'artefact', id: 'dummy-id', attribute: 'description', value: form.data.description});
           eventer.emit('update', {content: 'artefact', id: 'dummy-id', attribute: 'theme', value: form.data.theme});
           eventer.emit('update', {content: 'artefact', id: 'dummy-id', attribute: 'image', value: form.data.image});
-            reply('cool');
+          reply('cool');
         },
         error: function (form) {
             reply.view('artefact', {form: form.toHTML()});
