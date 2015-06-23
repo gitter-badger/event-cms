@@ -6,7 +6,10 @@ var validators = forms.validators;
 var form = forms.create({
     title: fields.string({ required: true }),
     description: fields.string({ required: true }),
-    theme: widgets.color(),
+    theme: fields.string({
+      required: true,
+      widget: widgets.color()
+    }),
     image: fields.url()
 });
 
@@ -26,27 +29,29 @@ var artefact = {
       server.route({
         method: 'POST',
         path: '/artefact',
+        config: {
+          payload: {
+            parse: true
+          }
+        },
         handler: function(request, reply) {
-          form.handle(request.request, {
-              success: function (form) {
-                console.log('yep');
-                  // form.data contains the submitted data
 
+          form.handle(request.payload, {
+              success: function (form) {
+                  reply('cool');
               },
               error: function (form) {
-                  reply.view('artefact', form.toHTML());
+                  reply.view('artefact', {form: form.toHTML()});
               },
               empty: function (form) {
-                console.log('form empty');
-                  // there was no form data in the request
+                  reply('empty');
               }
           });
+
         }
       })
 
-      // register events
-
-        next();
+      next();
     }
 }
 

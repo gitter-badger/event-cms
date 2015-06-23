@@ -11,14 +11,14 @@ server.views({
     path: Path.join(__dirname, 'views')
 });
 
-server.register([
-    {
-        register: require('./plugins/artefact')
-    }
-], function (err) {
+server.register([{
+    register: require('./plugins/artefact')
+}], function (err) {
+
     if (err) {
         console.error('Failed to load a plugin:', err);
     }
+
 });
 
 server.start(function () {
