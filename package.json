@@ -12,7 +12,8 @@
   "dependencies": {
     "forms": "^1.1.1",
     "handlebars": "^3.0.3",
-    "hapi": "^8.6.1"
+    "hapi": "^8.6.1",
+    "sf": "^0.1.8"
   },
   "devDependencies": {
     "nodemon": "^1.3.7"
