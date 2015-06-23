@@ -10,18 +10,31 @@ server.views({
     engines: {
         html: require('handlebars')
     },
-    path: Path.join(__dirname, 'views')
+    path: Path.join(__dirname, 'views'),
+    layout: true
 });
 
 var EventEmitter = events.EventEmitter;
 var emitter = new EventEmitter();
+var events = [];
 
-emitter.on('create', function(data){
+emitter.on('create', function(data) {
       console.log(sf('Created {content} content item {id}', data));
+      events.push({event: 'create', data: data});
 });
 
-emitter.on('update', function(data){
+emitter.on('update', function(data) {
       console.log(sf('Updated attribute {attribute} of content item {content}#{id} to be "{value}"', data));
+      events.push({event: 'update', data: data});
+});
+
+server.route({
+    method: 'GET',
+    path: '/feed',
+    handler: function (request, reply) {
+        reply(events);
+        events = [];
+    }
 });
 
 server.register([{
